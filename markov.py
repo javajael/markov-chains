@@ -12,7 +12,14 @@ def open_and_read_file(file_path):
 
     # your code goes here
 
-    return "Contents of your file as one long string"
+    input_file = open(file_path)
+    read_data = input_file.read()
+
+    print(read_data)    
+
+    return read_data
+
+
 
 
 def make_chains(text_string):
@@ -43,8 +50,30 @@ def make_chains(text_string):
     chains = {}
 
     # your code goes here
+    text_string = text_string.split()
+    #print("text_string after split", text_string)
+    values = []
 
-    return chains
+    for i in range(len(text_string)-1):
+        # print(text_string[i], text_string[i+1])
+        print("i = ", i)
+        print(len(text_string))
+
+        
+        if i+2 <= len(text_string)-1:
+            bigram = (text_string[i], text_string[i+1])
+            bigram_value = chains.get(bigram, [])
+            bigram_value.append(text_string[i=2])
+            chains[bigram] = bigram_value
+            # if bigram in chains():
+            #     chains[bigram] = values
+            #     values.append(text_string[i+2])
+            # else:
+            #     chains[bigram, text_string[i+2]]
+            # values.append(text_string[i+2])
+            print("Chains dictionary", chains)
+            
+    return chainsls
 
 
 def make_text(chains):
