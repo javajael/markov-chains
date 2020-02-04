@@ -56,20 +56,19 @@ def make_chains(text_string):
 
     for i in range(len(text_string)-1):
         # print(text_string[i], text_string[i+1])
-               
+
         if i+2 <= len(text_string)-1:
+            # make bigram variable,make it a tuple and assign word at i and i+1
             bigram = (text_string[i], text_string[i+1])
+            # bv = get bigram value from chains, if not there, assign empty list to value
             bigram_value = chains.get(bigram, [])
+            #bv is now a value, or an empty list. append to that [] text_string[i+2]
             bigram_value.append(text_string[i+2])
+            #set the value of bigram in chains
             chains[bigram] = bigram_value
-            # if bigram in chains():
-            #     chains[bigram] = values
-            #     values.append(text_string[i+2])
-            # else:
-            #     chains[bigram, text_string[i+2]]
-            # values.append(text_string[i+2])
-            print("Chains dictionary", chains)
             
+    print("Chains dictionary", chains)
+
     return chains
 
 
@@ -79,6 +78,12 @@ def make_text(chains):
     words = []
 
     # your code goes here
+    for bigram, words in chains.items():
+        print(bigram, words)
+
+
+
+
 
     return " ".join(words)
 
