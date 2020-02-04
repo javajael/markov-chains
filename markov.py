@@ -52,18 +52,15 @@ def make_chains(text_string):
     # your code goes here
     text_string = text_string.split()
     #print("text_string after split", text_string)
-    values = []
+   
 
     for i in range(len(text_string)-1):
         # print(text_string[i], text_string[i+1])
-        print("i = ", i)
-        print(len(text_string))
-
-        
+               
         if i+2 <= len(text_string)-1:
             bigram = (text_string[i], text_string[i+1])
             bigram_value = chains.get(bigram, [])
-            bigram_value.append(text_string[i=2])
+            bigram_value.append(text_string[i+2])
             chains[bigram] = bigram_value
             # if bigram in chains():
             #     chains[bigram] = values
@@ -73,7 +70,7 @@ def make_chains(text_string):
             # values.append(text_string[i+2])
             print("Chains dictionary", chains)
             
-    return chainsls
+    return chains
 
 
 def make_text(chains):
