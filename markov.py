@@ -51,7 +51,7 @@ def make_chains(text_string):
 
     # your code goes here
     text_string = text_string.split()
-    #print("text_string after split", text_string)
+    # print("text_string after split", text_string)
    
 
     for i in range(len(text_string)-1):
@@ -62,12 +62,12 @@ def make_chains(text_string):
             bigram = (text_string[i], text_string[i+1])
             # bv = get bigram value from chains, if not there, assign empty list to value
             bigram_value = chains.get(bigram, [])
-            #bv is now a value, or an empty list. append to that [] text_string[i+2]
+            # bv is now a value, or an empty list. append to that [] text_string[i+2]
             bigram_value.append(text_string[i+2])
-            #set the value of bigram in chains
+            # set the value of bigram in chains
             chains[bigram] = bigram_value
             
-    print("Chains dictionary", chains)
+    # print("Chains dictionary", chains)
 
     return chains
 
@@ -76,14 +76,21 @@ def make_text(chains):
     """Return text from chains."""
 
     words = []
+    # keys = chains.keys()
 
     # your code goes here
     for bigram, words in chains.items():
-        print(bigram, words)
+        # print("print1",bigram, words)
+        print("bigram", bigram[1])
 
-
-
-
+    # Make an initial link
+    print(choice(list(chains.keys())))
+    initial_key = choice(list(chains.keys))
+    
+    # print("Initial key = ", initial_key)
+    # Look up the value for that link in our chain
+    # choose random word from the list (value associated to that key)
+    # make next link using word2 from the key of the previous link,
 
     return " ".join(words)
 
