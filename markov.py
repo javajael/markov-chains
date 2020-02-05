@@ -16,11 +16,9 @@ def open_and_read_file(file_path):
     input_file = open(file_path)
     read_data = input_file.read()
 
-    # print(read_data)    
-
+    # print(read_data)
+    #  close the file!!!
     return read_data
-
-
 
 
 def make_chains(text_string):
@@ -73,6 +71,25 @@ def make_chains(text_string):
     return chains
 
 
+def make_n_gram_chain(text_string, n):
+    # right now this is written as if n is 3 - will need to substitute
+    # indexing to accomodate n values
+    chains = {}
+    text_string = text_string.split()
+    for i in range(len(text_string)-2):
+        if i+3 <= len(text_string)-2:
+            n_gram = (text_string[i], text_string[i+1], text_string[i+2])
+            n_gram_value = chains.get(n_gram)
+            # use list splicing instead?
+            print("text_string[i+3]=", text_string[i+3])
+            if text_string[i+3] is not None:
+                n_gram_value.append(text_string[i+3])
+                chains[n_gram] = n_gram_value
+            else:
+                break
+    return chains
+
+
 def make_text(chains):
     """Return text from chains."""
     words = []
@@ -118,9 +135,37 @@ def make_text(chains):
     return " ".join(words)
 
 
+def make_text_from_n_gram(chains):
+    words = []
+
+    key = choice(list(chains.keys()))
+    # for n grams - loop over a range of indices? so  for i in range(n)...
+    word1 = key[0]
+    word2 = key[1]
+    word3 = key[2]
+
+    words = [word1, word2, word3]
+    # debug print
+    print(words)
+
+    new_word = choice(chains.get(key))
+
+    while new_word is not None:
+        key = (word1, word2, new_word)
+        words.append(new_word)
+        if chains.get(key) is None:
+            break
+        else:
+            new_word = choice(chains.get(key, []))
+
+    return " ".join(words)
+
+
+
 # input_path = "green-eggs.txt"
 # take  the file passed in as a command line argument, and set that
 # as the file path/file name to use for our input
+
 input_path = sys.argv[1]
 
 # Open the file and turn it into one long string
@@ -133,3 +178,8 @@ chains = make_chains(input_text)
 random_text = make_text(chains)
 
 print(random_text)
+
+# try out our n-gram version
+chains = make_n_gram_chain(input_text, 3)
+random_text = make_text_from_n_gram(chains)
+
