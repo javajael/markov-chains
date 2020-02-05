@@ -15,7 +15,7 @@ def open_and_read_file(file_path):
     input_file = open(file_path)
     read_data = input_file.read()
 
-    print(read_data)    
+    # print(read_data)    
 
     return read_data
 
@@ -42,7 +42,6 @@ def make_chains(text_string):
 
         >>> chains[('hi', 'there')]
         ['mary', 'juanita']
-        
         >>> chains[('there','juanita')]
         [None]
     """
@@ -52,7 +51,6 @@ def make_chains(text_string):
     # your code goes here
     text_string = text_string.split()
     # print("text_string after split", text_string)
-   
 
     for i in range(len(text_string)-1):
         # print(text_string[i], text_string[i+1])
@@ -60,13 +58,15 @@ def make_chains(text_string):
         if i+2 <= len(text_string)-1:
             # make bigram variable,make it a tuple and assign word at i and i+1
             bigram = (text_string[i], text_string[i+1])
-            # bv = get bigram value from chains, if not there, assign empty list to value
+            # bv = get bigram value from chains, if not there,
+            # assign empty list to value
             bigram_value = chains.get(bigram, [])
-            # bv is now a value, or an empty list. append to that [] text_string[i+2]
+            # bv is now a value, or an empty list.
+            # append to that [] text_string[i+2]
             bigram_value.append(text_string[i+2])
             # set the value of bigram in chains
             chains[bigram] = bigram_value
-            
+
     # print("Chains dictionary", chains)
 
     return chains
@@ -74,32 +74,42 @@ def make_chains(text_string):
 
 def make_text(chains):
     """Return text from chains."""
-    
     words = []
     # keys = chains.keys()
 
     # your code goes here
-    for bigram, words in chains.items():
-        # print("print1",bigram, words)
-        print("bigram", bigram[1])
+    # for bigram, words in chains.items():
+    #     # print("print1",bigram, words)
+    #     print("bigram", bigram[1])
 
     # Make an initial link
     initial_key = choice(list(chains.keys()))
-    print("Initial key = ", initial_key)
+    # print("Initial key = ", initial_key)
+
+    words = [initial_key[0], initial_key[1]]
+    # print("words[] = ", words)
 
     initial_key_value = chains.get(initial_key)
-    print("initial_key_value", initial_key_value)
-    random_next_word = choice(initial_key_value)
-    print("random_next_word", random_next_word)
+    # print("initial_key_value", initial_key_value)
 
-    link = (initial_key, random_next_word)
-    print("link", link)
+    random_next_word = choice(initial_key_value)
+    # print("random_next_word", random_next_word)
+
+    # link = (initial_key, random_next_word)
+    # print("link", link)
 
     while random_next_word is not None:
-        # get the second indeces of initial_key put it at the first index of key
-        key = (initial_key[1], )
-        
-
+        # get the second indeces of initial_key put it at the
+        # first index of key
+        key = (initial_key[1], random_next_word)
+        # print("key", key)
+        words.append(random_next_word)
+        # print("chains.get(key)", chains.get(key))
+        if chains.get(key) is None:
+            break
+        else:
+            random_next_word = choice(chains.get(key, []))
+            # print("Random_next word is now = ", random_next_word)
     # Look up the value for that link in our chain
     # choose random word from the list (value associated to that key)
     # make next link using word2 from the key of the previous link,
