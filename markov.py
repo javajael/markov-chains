@@ -101,14 +101,14 @@ def make_text(chains):
     while random_next_word is not None:
         # get the second indeces of initial_key put it at the
         # first index of key
-        key = (initial_key[1], random_next_word)
-        # print("key", key)
+        initial_key = (initial_key[1], random_next_word)
+        print("initial_key", initial_key)
         words.append(random_next_word)
         # print("chains.get(key)", chains.get(key))
-        if chains.get(key) is None:
+        if chains.get(initial_key) is None:
             break
         else:
-            random_next_word = choice(chains.get(key, []))
+            random_next_word = choice(chains.get(initial_key, []))
             # print("Random_next word is now = ", random_next_word)
     # Look up the value for that link in our chain
     # choose random word from the list (value associated to that key)
