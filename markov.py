@@ -74,7 +74,7 @@ def make_chains(text_string):
 
 def make_text(chains):
     """Return text from chains."""
-
+    
     words = []
     # keys = chains.keys()
 
@@ -84,10 +84,22 @@ def make_text(chains):
         print("bigram", bigram[1])
 
     # Make an initial link
-    print(choice(list(chains.keys())))
-    initial_key = choice(list(chains.keys))
-    
-    # print("Initial key = ", initial_key)
+    initial_key = choice(list(chains.keys()))
+    print("Initial key = ", initial_key)
+
+    initial_key_value = chains.get(initial_key)
+    print("initial_key_value", initial_key_value)
+    random_next_word = choice(initial_key_value)
+    print("random_next_word", random_next_word)
+
+    link = (initial_key, random_next_word)
+    print("link", link)
+
+    while random_next_word is not None:
+        # get the second indeces of initial_key put it at the first index of key
+        key = (initial_key[1], )
+        
+
     # Look up the value for that link in our chain
     # choose random word from the list (value associated to that key)
     # make next link using word2 from the key of the previous link,
